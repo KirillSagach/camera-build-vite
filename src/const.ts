@@ -3,3 +3,7 @@ export enum AppRoute {
   Product = '/product',
   Basket = '/basket'
 }
+
+export enum APIRoute {
+  AllCatalog = '/cameras'
+}
