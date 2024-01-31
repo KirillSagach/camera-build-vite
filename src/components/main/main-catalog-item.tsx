@@ -17,14 +17,14 @@ function CatalogItem(): JSX.Element {
               <picture>
                 <source
                   type="image/webp"
-                  srcSet={`${item.previewImgWebp} ${item.previewImgWebp2x}`}
+                  srcSet={`${item.previewImgWebp}, ${item.previewImgWebp2x} 2x`}
                 />
                 <img
-                  src={`${item.previewImg}`}
+                  src={item.previewImg}
                   srcSet={`${item.previewImg2x}`}
                   width={280}
                   height={240}
-                  alt={`${item.name}`}
+                  alt={item.name}
                 />
               </picture>
             </div>
@@ -45,16 +45,16 @@ function CatalogItem(): JSX.Element {
                 <svg width={17} height={16} aria-hidden="true">
                   <use xlinkHref="#icon-star" />
                 </svg>
-                <p className="visually-hidden">Рейтинг: {`${item.rating}`}</p>
+                <p className="visually-hidden">Рейтинг: {item.rating}</p>
                 <p className="rate__count">
-                  <span className="visually-hidden">Всего оценок:</span>{`${item.reviewCount}`}
+                  <span className="visually-hidden">Всего оценок:</span>{item.reviewCount}
                 </p>
               </div>
               <p className="product-card__title">
                 {`${item.name}`}
               </p>
               <p className="product-card__price">
-                <span className="visually-hidden">Цена:</span>{`${item.price}`} ₽
+                <span className="visually-hidden">Цена:</span>{item.price} ₽
               </p>
             </div>
             <div className="product-card__buttons">
@@ -64,10 +64,8 @@ function CatalogItem(): JSX.Element {
               >
                 Купить
               </button>
-              <Link to={`${AppRoute.Product}/${item.id}`}>
-                <a className="btn btn--transparent" href="#">
+              <Link to={`${AppRoute.Product}/${item.id}`} className="btn btn--transparent">
                   Подробнее
-                </a>
               </Link>
             </div>
           </div >

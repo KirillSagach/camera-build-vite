@@ -4,6 +4,7 @@ import ProductReview from './product-review';
 import ProductSimilar from './product-similar';
 
 function Product(): JSX.Element {
+
   return (
     <div className="wrapper">
       <main>
