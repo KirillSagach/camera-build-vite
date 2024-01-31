@@ -1,5 +1,5 @@
 import Footer from '../footer/footer';
-import CatalogCards from './main-catalog-cards';
+import CatalogItems from './main-catalog-items';
 import MainFilterForm from './main-filter-form';
 import MainSortForm from './main-sort-form';
 
@@ -68,7 +68,7 @@ function Main(): JSX.Element {
                   <div className="catalog-sort">
                     <MainSortForm/>
                   </div>
-                  <CatalogCards/>
+                  <CatalogItems/>
                   <div className="pagination">
                     <ul className="pagination__list">
                       <li className="pagination__item">
