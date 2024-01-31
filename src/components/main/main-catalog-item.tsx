@@ -1,3 +1,5 @@
+import { Link } from 'react-router-dom';
+import { AppRoute } from '../../const';
 import { useAppSelector } from '../hooks';
 
 
@@ -62,11 +64,13 @@ function CatalogItem(): JSX.Element {
               >
                 Купить
               </button>
-              <a className="btn btn--transparent" href="#">
-                Подробнее
-              </a>
+              <Link to={`${AppRoute.Product}/${item.id}`}>
+                <a className="btn btn--transparent" href="#">
+                  Подробнее
+                </a>
+              </Link>
             </div>
-          </div>
+          </div >
         ))
       }
     </>

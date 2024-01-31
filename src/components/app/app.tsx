@@ -18,10 +18,12 @@ function App(): JSX.Element {
             index element={<MainPage />}
           >
           </Route>
-          <Route
-            path={AppRoute.Product}
-            element={<ProductPage />}
-          >
+          <Route path={AppRoute.Product}>
+            <Route
+              path=":id"
+              element={<ProductPage />}
+            >
+            </Route>
           </Route>
           <Route
             path={AppRoute.Basket}

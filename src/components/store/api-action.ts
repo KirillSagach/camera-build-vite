@@ -14,6 +14,5 @@ export const loadData = createAsyncThunk<void, undefined, {
   async(_arg, {dispatch, extra: api })=>{
     const {data} = await api.get<CatalogItemTypes>(APIRoute.AllCatalog);
     dispatch(loadCatalogItems(data));
-
   }
 );
