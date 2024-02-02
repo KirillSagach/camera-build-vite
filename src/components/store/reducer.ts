@@ -1,11 +1,12 @@
 import { createReducer } from '@reduxjs/toolkit';
 import { CatalogItemTypes } from '../../types/catalog-item-type';
-import { loadCatalogItems, loadCurrentItem } from './action';
-import { ItemType } from '../../types/item-type';
+import { loadCatalogItems, loadCurrentItem, loadCurrentItemReviews } from './action';
+import { ItemType, ItemTypeReviews } from '../../types/item-type';
 
 type InitialState = {
   catalogItems: CatalogItemTypes;
   currentItem: ItemType;
+  currentItemReviews: ItemTypeReviews;
 }
 
 const initialState: InitialState = {
@@ -25,7 +26,8 @@ const initialState: InitialState = {
     previewImg2x: '',
     previewImgWebp: '',
     previewImgWebp2x: '',
-  }
+  },
+  currentItemReviews: []
 };
 
 export const reducer = createReducer(
@@ -37,6 +39,9 @@ export const reducer = createReducer(
       })
       .addCase(loadCurrentItem, (state, action) => {
         state.currentItem = action.payload;
+      })
+      .addCase(loadCurrentItemReviews, (state, action) => {
+        state.currentItemReviews = action.payload;
       });
   }
 );
