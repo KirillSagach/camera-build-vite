@@ -1,6 +1,6 @@
 import { useParams } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../hooks';
-import { loadItemData } from '../store/api-action';
+import { loadItemData, loadItemReviews } from '../store/api-action';
 
 function ProductContainer(): JSX.Element {
 
@@ -12,6 +12,7 @@ function ProductContainer(): JSX.Element {
 
   if (currentItem === undefined || currentItem.id.toString() !== cameraId) {
     dispatch(loadItemData({ id: cameraId }));
+    dispatch(loadItemReviews({ id: cameraId }));
   }
 
   return (

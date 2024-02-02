@@ -2,10 +2,11 @@ import { createAsyncThunk } from '@reduxjs/toolkit';
 import { AppDispatch, State } from '../state';
 import { AxiosInstance } from 'axios';
 import { CatalogItemTypes } from '../../types/catalog-item-type';
-import { loadCatalogItems, loadCurrentItem } from './action';
+import { loadCatalogItems, loadCurrentItem, loadCurrentItemReviews } from './action';
 import { APIRoute } from '../../const';
 import { CatalogItemType } from '../../types/common-type';
 import { CameraId } from '../../types/api';
+import { ItemTypeReviews } from '../../types/item-type';
 
 export const loadData = createAsyncThunk<void, undefined, {
   dispatch: AppDispatch;
@@ -28,5 +29,17 @@ export const loadItemData = createAsyncThunk<void, CameraId, {
   async({id}, {dispatch, extra: api })=>{
     const {data} = await api.get<CatalogItemType>(`${APIRoute.AllCatalog}/${id}`);
     dispatch(loadCurrentItem(data));
+  }
+);
+
+export const loadItemReviews = createAsyncThunk<void, CameraId, {
+  dispatch: AppDispatch;
+  state: State;
+  extra: AxiosInstance;
+}>(
+  'camera/loadReviews',
+  async({id}, {dispatch, extra: api })=>{
+    const {data} = await api.get<ItemTypeReviews>(`${APIRoute.AllCatalog}/${id}/reviews`);
+    dispatch(loadCurrentItemReviews(data));
   }
 );
