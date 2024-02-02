@@ -4,6 +4,7 @@ import { AppRoute } from '../../const';
 import ProductPage from '../../pages/product/product-page';
 import BasketPage from '../../pages/basket-page/basket-page';
 import PageHeader from '../page-header/page-header';
+import ErrorPage from '../../pages/error-page/error-page';
 
 
 function App(): JSX.Element {
@@ -30,9 +31,11 @@ function App(): JSX.Element {
             element={<BasketPage />}
           >
           </Route>
-
+          <Route
+            path='*'
+            element={<ErrorPage />}
+          />
         </Route>
-
       </Routes>
     </BrowserRouter>
   );
