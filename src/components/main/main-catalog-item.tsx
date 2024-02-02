@@ -2,8 +2,11 @@ import { Link } from 'react-router-dom';
 import { AppRoute } from '../../const';
 import { useAppSelector } from '../hooks';
 
+type CatalogItemProps = {
+  onHandleClick: () => void;
+}
 
-function CatalogItem(): JSX.Element {
+function CatalogItem({onHandleClick}:CatalogItemProps): JSX.Element {
 
   const catalogItems = useAppSelector((state) => state.catalogItems);
 
@@ -61,6 +64,7 @@ function CatalogItem(): JSX.Element {
               <button
                 className="btn btn--purple product-card__btn"
                 type="button"
+                onClick={()=> onHandleClick()}
               >
                 Купить
               </button>

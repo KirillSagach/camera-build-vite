@@ -1,9 +1,17 @@
+import { useState } from 'react';
 import Footer from '../footer/footer';
 import CatalogItems from './main-catalog-items';
 import MainFilterForm from './main-filter-form';
 import MainSortForm from './main-sort-form';
+import AddItemPopUp from '../add-item-popup/add-item-popup';
 
 function Main(): JSX.Element {
+
+  const [show,setShow] = useState(false);
+
+  const setPopup = () => {
+    setShow(!show);
+  };
 
   return (
     <>
@@ -68,7 +76,9 @@ function Main(): JSX.Element {
                   <div className="catalog-sort">
                     <MainSortForm/>
                   </div>
-                  <CatalogItems/>
+                  <CatalogItems
+                    onHandleClick={setPopup}
+                  />
                   <div className="pagination">
                     <ul className="pagination__list">
                       <li className="pagination__item">
@@ -104,6 +114,9 @@ function Main(): JSX.Element {
             </div>
           </section>
         </div>
+        <AddItemPopUp
+          isPopupShow = {show}
+        />
       </main>
       <Footer/>
     </>
