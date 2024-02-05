@@ -24,6 +24,21 @@ function AddItemPopUp({ isPopupShow, onHandleClick }: AddItemPopupProps): JSX.El
     };
   }, [isPopupShow, onHandleClick, modalRef]);
 
+  useEffect(() => {
+
+    const closeModalOnEscKey = (evt: KeyboardEvent) => {
+      if (isPopupShow && evt.code === 'Escape') {
+        onHandleClick();
+      }
+    };
+
+    document.body.addEventListener('keydown', closeModalOnEscKey);
+
+    return () => {
+      document.body.removeEventListener('keydown', closeModalOnEscKey);
+    };
+  }, [isPopupShow, onHandleClick, modalRef]);
+
   return (
 
     isPopupShow ? (
