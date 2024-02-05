@@ -5,11 +5,11 @@ type AddItemPopupProps = {
   onHandleClick: () => void;
 }
 
-function AddItemPopUp({ isPopupShow,onHandleClick }: AddItemPopupProps): JSX.Element {
+function AddItemPopUp({ isPopupShow, onHandleClick }: AddItemPopupProps): JSX.Element {
 
   const modalRef = useRef(null);
 
-  useEffect(()=> {
+  useEffect(() => {
 
     const closeModalOnClick = (evt: MouseEvent) => {
       if (modalRef.current && !modalRef.current.contains(evt.target)) {
@@ -20,9 +20,9 @@ function AddItemPopUp({ isPopupShow,onHandleClick }: AddItemPopupProps): JSX.Ele
     document.body.addEventListener('mousedown', closeModalOnClick);
 
     return () => {
-      document.body.removeEventListener('mousedown',closeModalOnClick);
+      document.body.removeEventListener('mousedown', closeModalOnClick);
     };
-  }, [isPopupShow,onHandleClick,modalRef]);
+  }, [isPopupShow, onHandleClick, modalRef]);
 
   return (
 
@@ -74,7 +74,9 @@ function AddItemPopUp({ isPopupShow,onHandleClick }: AddItemPopupProps): JSX.Ele
                 Добавить в корзину
               </button>
             </div>
-            <button className="cross-btn" type="button" aria-label="Закрыть попап">
+            <button className="cross-btn" type="button" aria-label="Закрыть попап"
+              onClick={onHandleClick}
+            >
               <svg width={10} height={10} aria-hidden="true">
                 <use xlinkHref="#icon-close" />
               </svg>
