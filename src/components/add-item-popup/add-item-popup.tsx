@@ -1,8 +1,28 @@
+import { useEffect, useRef } from 'react';
+
 type AddItemPopupProps = {
   isPopupShow: boolean;
+  onHandleClick: () => void;
 }
 
-function AddItemPopUp({ isPopupShow }: AddItemPopupProps): JSX.Element {
+function AddItemPopUp({ isPopupShow,onHandleClick }: AddItemPopupProps): JSX.Element {
+
+  const modalRef = useRef(null);
+
+  useEffect(()=> {
+
+    const closeModalOnClick = (evt: MouseEvent) => {
+      if (modalRef.current && !modalRef.current.contains(evt.target)) {
+        onHandleClick();
+      }
+    };
+
+    document.body.addEventListener('mousedown', closeModalOnClick);
+
+    return () => {
+      document.body.removeEventListener('mousedown',closeModalOnClick);
+    };
+  }, [isPopupShow,onHandleClick,modalRef]);
 
   return (
 
@@ -10,7 +30,7 @@ function AddItemPopUp({ isPopupShow }: AddItemPopupProps): JSX.Element {
       <div className="modal is-active" >
         <div className="modal__wrapper">
           <div className="modal__overlay" />
-          <div className="modal__content">
+          <div ref={modalRef} className="modal__content">
             <p className="title title--h4">Добавить товар в корзину</p>
             <div className="basket-item basket-item--short">
               <div className="basket-item__img">

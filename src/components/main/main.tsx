@@ -116,6 +116,7 @@ function Main(): JSX.Element {
         </div>
         <AddItemPopUp
           isPopupShow = {show}
+          onHandleClick={setPopup}
         />
       </main>
       <Footer/>
