@@ -1,9 +1,12 @@
 import Footer from '../footer/footer';
+import { useAppSelector } from '../hooks';
 import ProductContainer from './product-container';
 import ProductReview from './product-review';
 import ProductSimilar from './product-similar';
 
 function Product(): JSX.Element {
+
+  const currentItem = useAppSelector((state) => state.currentItem);
 
   return (
     <div className="wrapper">
@@ -30,7 +33,7 @@ function Product(): JSX.Element {
                 </li>
                 <li className="breadcrumbs__item">
                   <span className="breadcrumbs__link breadcrumbs__link--active">
-                    Ретрокамера Das Auge IV
+                    {currentItem.name}
                   </span>
                 </li>
               </ul>
