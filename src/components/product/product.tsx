@@ -12,6 +12,12 @@ function Product(): JSX.Element {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
+  const scrollToTopQuick = () => {
+    window.scrollTo({ top: 0 });
+  };
+
+  scrollToTopQuick();
+
   return (
     <div className="wrapper">
       <main>
