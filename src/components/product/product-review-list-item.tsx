@@ -1,4 +1,6 @@
 import { useAppSelector } from '../hooks';
+import { sortReviews } from '../utils/utils-for-item';
+import { formatData } from '../utils/utils-for-reviews';
 type reviewListItemProps = {
   reviewsCount: number;
 }
@@ -6,7 +8,8 @@ type reviewListItemProps = {
 function ReviewListItem({reviewsCount}:reviewListItemProps): JSX.Element {
 
   const reviews = useAppSelector((state) => state.currentItemReviews);
-  const sliceReview = reviews.slice(0,reviewsCount);
+  const sortedReviews = sortReviews(reviews);
+  const sliceReview = sortedReviews.slice(0,reviewsCount);
 
   return (
     <>
@@ -15,8 +18,8 @@ function ReviewListItem({reviewsCount}:reviewListItemProps): JSX.Element {
           <li key={review.id} className="review-card">
             <div className="review-card__head">
               <p className="title title--h4">{review.userName}</p>
-              <time className="review-card__data" dateTime="2022-04-13">
-                13 апреля
+              <time className="review-card__data" dateTime={formatData(review.createAt, 'YYYY-MM-DD')}>
+                {formatData(review.createAt, 'DD MMMM')}
               </time>
             </div>
             <div className="rate review-card__rate">
