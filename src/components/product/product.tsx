@@ -8,6 +8,10 @@ function Product(): JSX.Element {
 
   const currentItem = useAppSelector((state) => state.currentItem);
 
+  const scrollToTop = () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
   return (
     <div className="wrapper">
       <main>
@@ -40,22 +44,26 @@ function Product(): JSX.Element {
             </div>
           </div>
           <div className="page-content__section">
-            <ProductContainer/>
+            <ProductContainer />
           </div>
           <div className="page-content__section">
-            <ProductSimilar/>
+            <ProductSimilar />
           </div>
           <div className="page-content__section">
-            <ProductReview/>
+            <ProductReview />
           </div>
         </div>
       </main>
-      <a className="up-btn" href="#header">
+      <a className="up-btn"
+        onClick={() => {
+          scrollToTop();
+        }}
+      >
         <svg width={12} height={18} aria-hidden="true">
           <use xlinkHref="#icon-arrow2" />
         </svg>
       </a>
-      <Footer/>
+      <Footer />
     </div>
   );
 }
