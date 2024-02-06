@@ -4,15 +4,17 @@ type CatalogItemsProps = {
   onHandleClick: () => void;
   onHandleItemHover: (id: number) => void;
   isPopUpShow: boolean;
+  currentPage: number;
 }
 
-function CatalogItems({ onHandleClick,onHandleItemHover,isPopUpShow }: CatalogItemsProps): JSX.Element {
+function CatalogItems({ onHandleClick,onHandleItemHover,isPopUpShow,currentPage }: CatalogItemsProps): JSX.Element {
   return (
     <div className="cards catalog__cards">
       <CatalogItem
         onHandleClick = {onHandleClick}
         onHandleItemHover = {onHandleItemHover}
         isPopUpShow = {isPopUpShow}
+        currentPage={currentPage}
       />
     </div>
   );

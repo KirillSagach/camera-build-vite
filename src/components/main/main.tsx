@@ -4,6 +4,7 @@ import CatalogItems from './main-catalog-items';
 import MainFilterForm from './main-filter-form';
 import MainSortForm from './main-sort-form';
 import AddItemPopUp from '../add-item-popup/add-item-popup';
+import Pagination from './main-pagination';
 
 function Main(): JSX.Element {
 
@@ -15,6 +16,11 @@ function Main(): JSX.Element {
   const [hoveredItemId, setHoveredItemId] = useState(0);
   const onHandleItemHover = (currentId: number) => {
     setHoveredItemId(currentId);
+  };
+
+  const [currentPage, setCurrentPage] = useState(1);
+  const onHandlePagItem = (currentId: number) => {
+    setCurrentPage(currentId);
   };
 
   return (
@@ -84,37 +90,11 @@ function Main(): JSX.Element {
                     onHandleClick={setPopup}
                     onHandleItemHover = {onHandleItemHover}
                     isPopUpShow = {show}
+                    currentPage={currentPage}
                   />
-                  <div className="pagination">
-                    <ul className="pagination__list">
-                      <li className="pagination__item">
-                        <a
-                          className="pagination__link pagination__link--active"
-                          href="1"
-                        >
-                          1
-                        </a>
-                      </li>
-                      <li className="pagination__item">
-                        <a className="pagination__link" href="2">
-                          2
-                        </a>
-                      </li>
-                      <li className="pagination__item">
-                        <a className="pagination__link" href="3">
-                          3
-                        </a>
-                      </li>
-                      <li className="pagination__item">
-                        <a
-                          className="pagination__link pagination__link--text"
-                          href="2"
-                        >
-                          Далее
-                        </a>
-                      </li>
-                    </ul>
-                  </div>
+                  <Pagination
+                    onHandlePagClick={onHandlePagItem}
+                  />
                 </div>
               </div>
             </div>
