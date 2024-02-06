@@ -5,9 +5,10 @@ import { useAppSelector } from '../hooks';
 type CatalogItemProps = {
   onHandleClick: () => void;
   onHandleItemHover: (id: number) => void;
+  isPopUpShow: boolean;
 }
 
-function CatalogItem({ onHandleClick, onHandleItemHover }: CatalogItemProps): JSX.Element {
+function CatalogItem({ onHandleClick, onHandleItemHover, isPopUpShow }: CatalogItemProps): JSX.Element {
 
   const catalogItems = useAppSelector((state) => state.catalogItems);
 
@@ -18,12 +19,16 @@ function CatalogItem({ onHandleClick, onHandleItemHover }: CatalogItemProps): JS
         catalogItems.map((item) => (
           <div key={item.id} className="product-card"
             onMouseEnter={(evt) => {
-              evt.preventDefault();
-              onHandleItemHover(item.id);
+              if (!isPopUpShow) {
+                evt.preventDefault();
+                onHandleItemHover(item.id);
+              }
             }}
-            onMouseLeave={(evt)=> {
-              evt.preventDefault();
-              onHandleItemHover(0);
+            onMouseLeave={(evt) => {
+              if (!isPopUpShow) {
+                evt.preventDefault();
+                onHandleItemHover(0);
+              }
             }}
           >
             <div className="product-card__img">

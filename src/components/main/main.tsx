@@ -83,6 +83,7 @@ function Main(): JSX.Element {
                   <CatalogItems
                     onHandleClick={setPopup}
                     onHandleItemHover = {onHandleItemHover}
+                    isPopUpShow = {show}
                   />
                   <div className="pagination">
                     <ul className="pagination__list">
@@ -122,6 +123,7 @@ function Main(): JSX.Element {
         <AddItemPopUp
           isPopupShow = {show}
           onHandleClick={setPopup}
+          currentHoverItem={hoveredItemId}
         />
       </main>
       <Footer/>
