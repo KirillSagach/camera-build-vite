@@ -1,11 +1,17 @@
 import { useEffect, useRef } from 'react';
+import { useAppSelector } from '../hooks';
+import { findItemForPopUp } from '../utils/utils-for-item';
 
 type AddItemPopupProps = {
   isPopupShow: boolean;
   onHandleClick: () => void;
+  currentHoverItem: number;
 }
 
-function AddItemPopUp({ isPopupShow, onHandleClick }: AddItemPopupProps): JSX.Element {
+function AddItemPopUp({ isPopupShow, onHandleClick, currentHoverItem}: AddItemPopupProps): JSX.Element {
+
+  const catalogItems = useAppSelector((state)=> state.catalogItems);
+  const currentHoverItemData = findItemForPopUp(currentHoverItem, catalogItems);
 
   const modalRef = useRef(null);
 
@@ -22,7 +28,7 @@ function AddItemPopUp({ isPopupShow, onHandleClick }: AddItemPopupProps): JSX.El
     return () => {
       document.body.removeEventListener('mousedown', closeModalOnClick);
     };
-  }, [isPopupShow, onHandleClick, modalRef]);
+  }, [isPopupShow, onHandleClick]);
 
   useEffect(() => {
 
@@ -37,7 +43,7 @@ function AddItemPopUp({ isPopupShow, onHandleClick }: AddItemPopupProps): JSX.El
     return () => {
       document.body.removeEventListener('keydown', closeModalOnEscKey);
     };
-  }, [isPopupShow, onHandleClick, modalRef]);
+  }, [isPopupShow, onHandleClick]);
 
   return (
 
@@ -52,29 +58,29 @@ function AddItemPopUp({ isPopupShow, onHandleClick }: AddItemPopupProps): JSX.El
                 <picture>
                   <source
                     type="image/webp"
-                    srcSet="img/content/orlenok.webp, img/content/orlenok@2x.webp 2x"
+                    srcSet={`${currentHoverItemData.previewImgWebp}, ${currentHoverItemData.previewImgWebp2x} 2x`}
                   />
                   <img
-                    src="img/content/orlenok.jpg"
-                    srcSet="img/content/orlenok@2x.jpg 2x"
+                    src={currentHoverItemData.previewImg}
+                    srcSet={`${currentHoverItemData.previewImg2x} 2x`}
                     width={140}
                     height={120}
-                    alt="Фотоаппарат «Орлёнок»"
+                    alt={currentHoverItemData.name}
                   />
                 </picture>
               </div>
               <div className="basket-item__description">
-                <p className="basket-item__title">Орлёнок</p>
+                <p className="basket-item__title">{currentHoverItemData.name}</p>
                 <ul className="basket-item__list">
                   <li className="basket-item__list-item">
                     <span className="basket-item__article">Артикул:</span>{' '}
-                    <span className="basket-item__number">O78DFGSD832</span>
+                    <span className="basket-item__number">{currentHoverItemData.vendorCode}</span>
                   </li>
-                  <li className="basket-item__list-item">Плёночная фотокамера</li>
-                  <li className="basket-item__list-item">Любительский уровень</li>
+                  <li className="basket-item__list-item">{`${currentHoverItemData.type} фотокамера`}</li>
+                  <li className="basket-item__list-item">{`${currentHoverItemData.level} уровень`}</li>
                 </ul>
                 <p className="basket-item__price">
-                  <span className="visually-hidden">Цена:</span>18 970 ₽
+                  <span className="visually-hidden">Цена:</span>{`${currentHoverItemData.price} ₽`}
                 </p>
               </div>
             </div>
