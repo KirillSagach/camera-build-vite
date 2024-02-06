@@ -1,13 +1,17 @@
 import { useAppSelector } from '../hooks';
+type reviewListItemProps = {
+  reviewsCount: number;
+}
 
-function ReviewListItem(): JSX.Element {
+function ReviewListItem({reviewsCount}:reviewListItemProps): JSX.Element {
 
   const reviews = useAppSelector((state) => state.currentItemReviews);
+  const sliceReview = reviews.slice(0,reviewsCount);
 
   return (
     <>
       {
-        reviews.map((review) => (
+        sliceReview.map((review) => (
           <li key={review.id} className="review-card">
             <div className="review-card__head">
               <p className="title title--h4">{review.userName}</p>
