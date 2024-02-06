@@ -8,9 +8,13 @@ import AddItemPopUp from '../add-item-popup/add-item-popup';
 function Main(): JSX.Element {
 
   const [show,setShow] = useState(false);
-
   const setPopup = () => {
     setShow(!show);
+  };
+
+  const [hoveredItemId, setHoveredItemId] = useState(0);
+  const onHandleItemHover = (currentId: number) => {
+    setHoveredItemId(currentId);
   };
 
   return (
@@ -78,6 +82,7 @@ function Main(): JSX.Element {
                   </div>
                   <CatalogItems
                     onHandleClick={setPopup}
+                    onHandleItemHover = {onHandleItemHover}
                   />
                   <div className="pagination">
                     <ul className="pagination__list">
