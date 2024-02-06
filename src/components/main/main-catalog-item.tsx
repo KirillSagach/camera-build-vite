@@ -4,9 +4,10 @@ import { useAppSelector } from '../hooks';
 
 type CatalogItemProps = {
   onHandleClick: () => void;
+  onHandleItemHover: (id: number) => void;
 }
 
-function CatalogItem({onHandleClick}:CatalogItemProps): JSX.Element {
+function CatalogItem({ onHandleClick, onHandleItemHover }: CatalogItemProps): JSX.Element {
 
   const catalogItems = useAppSelector((state) => state.catalogItems);
 
@@ -15,7 +16,16 @@ function CatalogItem({onHandleClick}:CatalogItemProps): JSX.Element {
     <>
       {
         catalogItems.map((item) => (
-          <div key={item.id} className="product-card">
+          <div key={item.id} className="product-card"
+            onMouseEnter={(evt) => {
+              evt.preventDefault();
+              onHandleItemHover(item.id);
+            }}
+            onMouseLeave={(evt)=> {
+              evt.preventDefault();
+              onHandleItemHover(0);
+            }}
+          >
             <div className="product-card__img">
               <picture>
                 <source
@@ -64,12 +74,12 @@ function CatalogItem({onHandleClick}:CatalogItemProps): JSX.Element {
               <button
                 className="btn btn--purple product-card__btn"
                 type="button"
-                onClick={()=> onHandleClick()}
+                onClick={() => onHandleClick()}
               >
                 Купить
               </button>
               <Link to={`${AppRoute.Product}/${item.id}`} className="btn btn--transparent">
-                  Подробнее
+                Подробнее
               </Link>
             </div>
           </div >
