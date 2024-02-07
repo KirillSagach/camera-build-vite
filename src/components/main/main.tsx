@@ -94,6 +94,7 @@ function Main(): JSX.Element {
                   />
                   <Pagination
                     onHandlePagClick={onHandlePagItem}
+                    currentPage={currentPage}
                   />
                 </div>
               </div>

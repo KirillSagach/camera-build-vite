@@ -3,9 +3,10 @@ import PaginationItems from './main-pagination-items';
 
 type paginationProps = {
   onHandlePagClick: (i : number) => void;
+  currentPage: number;
 }
 
-function Pagination({onHandlePagClick}:paginationProps): JSX.Element {
+function Pagination({onHandlePagClick, currentPage}:paginationProps): JSX.Element {
 
   const currentItems = useAppSelector((state)=> state.catalogItems);
   const pages = currentItems.length / 9;
@@ -17,6 +18,7 @@ function Pagination({onHandlePagClick}:paginationProps): JSX.Element {
         <PaginationItems
           count={ceilPages}
           onHandlePagClick={onHandlePagClick}
+          currentPage={currentPage}
         />
       </ul>
     </div>
