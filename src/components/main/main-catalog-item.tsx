@@ -6,17 +6,38 @@ type CatalogItemProps = {
   onHandleClick: () => void;
   onHandleItemHover: (id: number) => void;
   isPopUpShow: boolean;
+  currentPage: number;
 }
 
-function CatalogItem({ onHandleClick, onHandleItemHover, isPopUpShow }: CatalogItemProps): JSX.Element {
+function CatalogItem({ onHandleClick, onHandleItemHover, isPopUpShow, currentPage }: CatalogItemProps): JSX.Element {
 
   const catalogItems = useAppSelector((state) => state.catalogItems);
+
+  let startPage = 0;
+  let endPage = 0;
+
+  const modifyStartEndPages = (page: number) => {
+    if (page < 2) {
+      startPage = 0;
+      endPage = 9;
+    } else {
+      const modifiedPage = page - 1;
+      const proxyStartPage = `${modifiedPage.toString()}0`;
+      const proxyEndPage = `${modifiedPage.toString()}9`;
+      startPage = parseInt(proxyStartPage, 10);
+      endPage = parseInt(proxyEndPage, 10);
+    }
+  };
+
+  modifyStartEndPages(currentPage);
+
+  const currentCatalogItems = catalogItems.slice(startPage,endPage);
 
   return (
 
     <>
       {
-        catalogItems.map((item) => (
+        currentCatalogItems.map((item) => (
           <div key={item.id} className="product-card"
             onMouseEnter={(evt) => {
               if (!isPopUpShow) {
