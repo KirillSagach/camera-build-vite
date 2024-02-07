@@ -15,18 +15,65 @@ function PaginationItems({ count, onHandlePagClick, currentPage }: paginationIte
     }
   }
 
-  for (let i = 1; i <= count; i++) {
-    const activeMarkup = isActivePageMarkup(i,currentPage);
-    pagItems.push(
-      <li className="pagination__item">
-        <a
-          className={`pagination__link pagination__link ${activeMarkup}`}
-          onClick={() => onHandlePagClick(i)}
-        >
-          {i}
-        </a>
-      </li>
-    );
+  function createMarkup(pagPage: number, curPage: number) {
+    const activeMarkup = isActivePageMarkup(pagPage, curPage);
+
+    if ((pagPage - curPage) > 2) {
+      return (
+        <li key={pagPage} className="pagination__item">
+          <a className="pagination__link pagination__link--text"
+            onClick={() => onHandlePagClick(pagPage)}
+          >Далее
+          </a>
+        </li>
+      );
+    } else if ((pagPage - curPage) < -2) {
+      return (
+        <li key={pagPage} className="pagination__item">
+          <a className="pagination__link pagination__link--text"
+            onClick={() => onHandlePagClick(pagPage)}
+          >Назад
+          </a>
+        </li>
+      );
+    } else {
+      return (
+        <li key={pagPage} className="pagination__item">
+          <a
+            className={`pagination__link pagination__link ${activeMarkup}`}
+            onClick={() => onHandlePagClick(pagPage)}
+          >
+            {pagPage}
+          </a>
+        </li>
+      );
+    }
+  }
+
+  function setMinPageNumber() {
+    let minPage = currentPage - 4;
+    if (minPage <= 0) {
+      minPage = 1;
+    }
+
+    return minPage;
+  }
+
+  function setMaxPageNumber() {
+    let maxPage = currentPage + 4;
+    if (maxPage >= count) {
+      maxPage = count;
+    }
+
+    return maxPage;
+  }
+
+  const minPage = setMinPageNumber();
+  const maxPage = setMaxPageNumber();
+
+  for (let i = minPage; i <= maxPage; i++) {
+    const currentMarkup = createMarkup(i, currentPage);
+    pagItems.push(currentMarkup);
   }
 
   return (
