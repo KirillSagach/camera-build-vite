@@ -3,8 +3,8 @@ import Footer from '../footer/footer';
 import CatalogItems from './main-catalog-items';
 import MainFilterForm from './main-filter-form';
 import MainSortForm from './main-sort-form';
-import AddItemPopUp from '../add-item-popup/add-item-popup';
 import Pagination from './main-pagination';
+import AddPopUp from '../add-popup/add-popup';
 
 function Main(): JSX.Element {
 
@@ -101,10 +101,11 @@ function Main(): JSX.Element {
             </div>
           </section>
         </div>
-        <AddItemPopUp
-          isPopupShow = {show}
+        <AddPopUp
+          isPopupShow={show}
           onHandleClick={setPopup}
           currentHoverItem={hoveredItemId}
+          isItemPopup
         />
       </main>
       <Footer/>
