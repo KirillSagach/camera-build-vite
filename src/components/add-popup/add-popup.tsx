@@ -1,7 +1,6 @@
 import { useEffect, useRef } from 'react';
-import { useAppSelector } from '../hooks';
-import { findItemForPopUp } from '../utils/utils-for-item';
 import AddPopUpItem from './add-popup-item';
+import AddPopUpReview from './add-popup-review';
 
 type AddPopUp = {
   isPopupShow: boolean;
@@ -11,9 +10,6 @@ type AddPopUp = {
 }
 
 function AddPopUp({ isPopupShow, onHandleClick, currentHoverItem, isItemPopup }: AddPopUp): JSX.Element {
-
-  const catalogItems = useAppSelector((state) => state.catalogItems);
-  const currentHoverItemData = findItemForPopUp(currentHoverItem, catalogItems);
 
   const modalRef = useRef(null);
 
@@ -51,12 +47,19 @@ function AddPopUp({ isPopupShow, onHandleClick, currentHoverItem, isItemPopup }:
   function returnPopUpMarkup(isItem: boolean) {
 
     switch (isItem) {
+
       case true:
+
         return (
           <AddPopUpItem
-            currentHoverItemData={currentHoverItemData}
+            currentHoverItem={currentHoverItem}
             onHandleClick={onHandleClick}
           />
+        );
+
+      case false:
+        return (
+          <AddPopUpReview />
         );
     }
   }

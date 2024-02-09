@@ -1,11 +1,15 @@
-import { CatalogItemType } from '../../types/common-type';
+import { useAppSelector } from '../hooks';
+import { findItemForPopUp } from '../utils/utils-for-item';
 
 type AddPopUpItemProps = {
-  currentHoverItemData: CatalogItemType;
+  currentHoverItem: number;
   onHandleClick: ()=> void;
 }
 
-function AddPopUpItem({currentHoverItemData,onHandleClick}: AddPopUpItemProps): JSX.Element {
+function AddPopUpItem({currentHoverItem,onHandleClick}: AddPopUpItemProps): JSX.Element {
+
+  const catalogItems = useAppSelector((state) => state.catalogItems);
+  const currentHoverItemData = findItemForPopUp(currentHoverItem, catalogItems);
 
   return (
 

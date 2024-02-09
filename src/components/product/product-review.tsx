@@ -3,7 +3,11 @@ import ProductReviewList from './product-review-list';
 import ProductReviewBtn from './product-review-btn';
 import { useAppSelector } from '../hooks';
 
-function ProductReview(): JSX.Element {
+type productReviewProps = {
+  onHandleClick: ()=> void;
+}
+
+function ProductReview({onHandleClick}:productReviewProps): JSX.Element {
 
   const [reviewsCount, setReviewsCount] = useState(3);
 
@@ -20,7 +24,9 @@ function ProductReview(): JSX.Element {
       <div className="container">
         <div className="page-content__headed">
           <h2 className="title title--h3">Отзывы</h2>
-          <button className="btn" type="button">
+          <button className="btn" type="button"
+            onClick={() => onHandleClick()}
+          >
             Оставить свой отзыв
           </button>
         </div>
