@@ -1,24 +1,29 @@
-import { useForm } from 'react-hook-form';
+import { FieldErrors, useForm } from 'react-hook-form';
 
 
 function AddPopUpReviewForm(): JSX.Element {
 
-  const { register, handleSubmit, formState: {errors}} = useForm();
+  const { register, handleSubmit, formState: { errors } } = useForm();
 
-  // console.log(errors);
+  console.log(errors);
+
+  function getInvalidMarkup(val: string) {
+
+    if (errors[val]) {
+      return 'is-invalid';
+    } else {
+      return '';
+    }
+  }
 
   return (
 
     <form
       method="post"
-      onSubmit={() => {
-        handleSubmit((data) => {
-          console.log(data);
-        });
-      }}
+      onSubmit={handleSubmit(handleSubmit((data) => console.log(data)))}
     >
       <div className="form-review__rate">
-        {/* <fieldset className="rate form-review__item">
+        <fieldset className="rate form-review__item">
           <legend className="rate__caption">
             Рейтинг
             <svg width={9} height={9} aria-hidden="true">
@@ -78,8 +83,8 @@ function AddPopUpReviewForm(): JSX.Element {
             </div>
           </div>
           <p className="rate__message">Нужно оценить товар</p>
-        </fieldset> */}
-        <div className="custom-input form-review__item">
+        </fieldset>
+        <div className={`custom-input form-review__item ${getInvalidMarkup('user-name')}`}>
           <label>
             <span className="custom-input__label">
               Ваше имя
@@ -90,12 +95,12 @@ function AddPopUpReviewForm(): JSX.Element {
             <input
               type="text"
               placeholder="Введите ваше имя"
-              {...register('user-name', {required: true})}
+              {...register('user-name', { required: true, minLength: 2, maxLength: 15 })}
             />
           </label>
-
+          <p className="custom-input__error">Нужно указать имя</p>
         </div>
-        {/* <div className="custom-input form-review__item">
+        <div className={`custom-input form-review__item ${getInvalidMarkup('user-plus')}`}>
           <label>
             <span className="custom-input__label">
               Достоинства
@@ -105,14 +110,13 @@ function AddPopUpReviewForm(): JSX.Element {
             </span>
             <input
               type="text"
-              name="user-plus"
               placeholder="Основные преимущества товара"
-              required
+              {...register('user-plus', { required: true, minLength: 10, maxLength: 160 })}
             />
           </label>
           <p className="custom-input__error">Нужно указать достоинства</p>
         </div>
-        <div className="custom-input form-review__item">
+        <div className={`custom-input form-review__item ${getInvalidMarkup('user-minus')}`}>
           <label>
             <span className="custom-input__label">
               Недостатки
@@ -122,14 +126,13 @@ function AddPopUpReviewForm(): JSX.Element {
             </span>
             <input
               type="text"
-              name="user-minus"
               placeholder="Главные недостатки товара"
-              required
+              {...register('user-minus', { required: true, minLength: 10, maxLength: 160 })}
             />
           </label>
           <p className="custom-input__error">Нужно указать недостатки</p>
         </div>
-        <div className="custom-textarea form-review__item">
+        <div className={`custom-textarea form-review__item ${getInvalidMarkup('user-comment')}`}>
           <label>
             <span className="custom-textarea__label">
               Комментарий
@@ -138,16 +141,16 @@ function AddPopUpReviewForm(): JSX.Element {
               </svg>
             </span>
             <textarea
-              name="user-comment"
               minLength={5}
               placeholder="Поделитесь своим опытом покупки"
               defaultValue={''}
+              {...register('user-comment', { required: true, minLength: 10, maxLength: 160 })}
             />
           </label>
           <div className="custom-textarea__error">
             Нужно добавить комментарий
           </div>
-        </div> */}
+        </div>
       </div>
       <button className="btn btn--purple form-review__btn" type="submit">
         Отправить отзыв
