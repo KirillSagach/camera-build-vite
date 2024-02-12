@@ -1,11 +1,46 @@
-import { FieldErrors, useForm } from 'react-hook-form';
+import { ChangeEvent, useState } from 'react';
+import { useForm } from 'react-hook-form';
+import { useAppDispatch, useAppSelector } from '../hooks';
+import { uploadUserReview } from '../store/api-action';
 
 
 function AddPopUpReviewForm(): JSX.Element {
 
   const { register, handleSubmit, formState: { errors } } = useForm();
 
-  console.log(errors);
+  const dispatch = useAppDispatch();
+  const currentItemId = useAppSelector((state)=>state.currentItem.id);
+
+  const [formData, setFormData] = useState({
+    cameraId: currentItemId,
+    userName: '',
+    advantage: '',
+    disadvantage: '',
+    review: '',
+    rating: 0,
+  });
+
+  const onRatingChange = (evt: ChangeEvent<HTMLInputElement>) => {
+    const rating = Number(evt.target.value);
+    setFormData((prevState) => ({ ...prevState, rating }));
+  };
+
+  const onUserNameChange = (evt: ChangeEvent<HTMLInputElement>) => {
+    const userName = evt.target.value;
+    setFormData((prevState) => ({ ...prevState, userName }));
+  };
+  const onUserPlusChange = (evt: ChangeEvent<HTMLInputElement>) => {
+    const advantage = evt.target.value;
+    setFormData((prevState) => ({ ...prevState, advantage }));
+  };
+  const onUserMinusChange = (evt: ChangeEvent<HTMLInputElement>) => {
+    const disadvantage = evt.target.value;
+    setFormData((prevState) => ({ ...prevState, disadvantage }));
+  };
+  const onUserCommentChange = (evt: ChangeEvent<HTMLTextAreaElement>) => {
+    const review = evt.target.value;
+    setFormData((prevState) => ({ ...prevState, review }));
+  };
 
   function getInvalidMarkup(val: string) {
 
@@ -16,14 +51,18 @@ function AddPopUpReviewForm(): JSX.Element {
     }
   }
 
+  const onSubmit = () => {
+    dispatch(uploadUserReview(formData));
+  };
+
   return (
 
     <form
       method="post"
-      onSubmit={handleSubmit(handleSubmit((data) => console.log(data)))}
+      onSubmit={handleSubmit(onSubmit)}
     >
       <div className="form-review__rate">
-        <fieldset className="rate form-review__item">
+        <fieldset className={`rate form-review__item ${getInvalidMarkup('rate')}`}>
           <legend className="rate__caption">
             Рейтинг
             <svg width={9} height={9} aria-hidden="true">
@@ -35,25 +74,28 @@ function AddPopUpReviewForm(): JSX.Element {
               <input
                 className="visually-hidden"
                 id="star-5"
-                name="rate"
+                {...register('rate', { required: true, pattern: /^[0-9]{1,1}\d{0}/ })}
                 type="radio"
                 defaultValue={5}
+                onChange={onRatingChange}
               />
               <label className="rate__label" htmlFor="star-5" title="Отлично" />
               <input
                 className="visually-hidden"
                 id="star-4"
-                name="rate"
+                {...register('rate', { required: true, pattern: /^[0-9]{1,1}\d{0}/ })}
                 type="radio"
                 defaultValue={4}
+                onChange={onRatingChange}
               />
               <label className="rate__label" htmlFor="star-4" title="Хорошо" />
               <input
                 className="visually-hidden"
                 id="star-3"
-                name="rate"
+                {...register('rate', { required: true, pattern: /^[0-9]{1,1}\d{0}/ })}
                 type="radio"
                 defaultValue={3}
+                onChange={onRatingChange}
               />
               <label
                 className="rate__label"
@@ -63,22 +105,24 @@ function AddPopUpReviewForm(): JSX.Element {
               <input
                 className="visually-hidden"
                 id="star-2"
-                name="rate"
+                {...register('rate', { required: true, pattern: /^[0-9]{1,1}\d{0}/ })}
                 type="radio"
                 defaultValue={2}
+                onChange={onRatingChange}
               />
               <label className="rate__label" htmlFor="star-2" title="Плохо" />
               <input
                 className="visually-hidden"
                 id="star-1"
-                name="rate"
+                {...register('rate', { required: true, pattern: /^[0-9]{1,1}\d{0}/ })}
                 type="radio"
                 defaultValue={1}
+                onChange={onRatingChange}
               />
               <label className="rate__label" htmlFor="star-1" title="Ужасно" />
             </div>
             <div className="rate__progress">
-              <span className="rate__stars">0</span> <span>/</span>{' '}
+              <span className="rate__stars">{formData.rating}</span> <span>/</span>{' '}
               <span className="rate__all-stars">5</span>
             </div>
           </div>
@@ -95,7 +139,10 @@ function AddPopUpReviewForm(): JSX.Element {
             <input
               type="text"
               placeholder="Введите ваше имя"
-              {...register('user-name', { required: true, minLength: 2, maxLength: 15 })}
+              {...register('user-name', {
+                required: true, minLength: 2, maxLength: 15,
+              })}
+              onChange={onUserNameChange}
             />
           </label>
           <p className="custom-input__error">Нужно указать имя</p>
@@ -112,6 +159,7 @@ function AddPopUpReviewForm(): JSX.Element {
               type="text"
               placeholder="Основные преимущества товара"
               {...register('user-plus', { required: true, minLength: 10, maxLength: 160 })}
+              onChange={onUserPlusChange}
             />
           </label>
           <p className="custom-input__error">Нужно указать достоинства</p>
@@ -128,6 +176,7 @@ function AddPopUpReviewForm(): JSX.Element {
               type="text"
               placeholder="Главные недостатки товара"
               {...register('user-minus', { required: true, minLength: 10, maxLength: 160 })}
+              onChange={onUserMinusChange}
             />
           </label>
           <p className="custom-input__error">Нужно указать недостатки</p>
@@ -145,6 +194,7 @@ function AddPopUpReviewForm(): JSX.Element {
               placeholder="Поделитесь своим опытом покупки"
               defaultValue={''}
               {...register('user-comment', { required: true, minLength: 10, maxLength: 160 })}
+              onChange={onUserCommentChange}
             />
           </label>
           <div className="custom-textarea__error">
