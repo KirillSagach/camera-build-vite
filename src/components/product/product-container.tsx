@@ -1,6 +1,7 @@
 import { useParams } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../hooks';
 import { loadItemData, loadItemReviews } from '../store/api-action';
+import ItemRating from '../item-rating/item-rating';
 
 function ProductContainer(): JSX.Element {
 
@@ -36,21 +37,9 @@ function ProductContainer(): JSX.Element {
         <div className="product__content">
           <h1 className="title title--h3">{currentItem.name}</h1>
           <div className="rate product__rate">
-            <svg width={17} height={16} aria-hidden="true">
-              <use xlinkHref="#icon-full-star" />
-            </svg>
-            <svg width={17} height={16} aria-hidden="true">
-              <use xlinkHref="#icon-full-star" />
-            </svg>
-            <svg width={17} height={16} aria-hidden="true">
-              <use xlinkHref="#icon-full-star" />
-            </svg>
-            <svg width={17} height={16} aria-hidden="true">
-              <use xlinkHref="#icon-full-star" />
-            </svg>
-            <svg width={17} height={16} aria-hidden="true">
-              <use xlinkHref="#icon-star" />
-            </svg>
+            <ItemRating
+              rating={currentItem.rating}
+            />
             <p className="visually-hidden">Рейтинг: {currentItem.rating}</p>
             <p className="rate__count">
               <span className="visually-hidden">Всего оценок:</span>{currentItem.reviewCount}

@@ -1,15 +1,16 @@
 import { useAppSelector } from '../hooks';
+import ItemRating from '../item-rating/item-rating';
 import { sortReviews } from '../utils/utils-for-item';
 import { formatData } from '../utils/utils-for-reviews';
 type reviewListItemProps = {
   reviewsCount: number;
 }
 
-function ReviewListItem({reviewsCount}:reviewListItemProps): JSX.Element {
+function ReviewListItem({ reviewsCount }: reviewListItemProps): JSX.Element {
 
   const reviews = useAppSelector((state) => state.currentItemReviews);
   const sortedReviews = sortReviews(reviews);
-  const sliceReview = sortedReviews.slice(0,reviewsCount);
+  const sliceReview = sortedReviews.slice(0, reviewsCount);
 
   return (
     <>
@@ -23,21 +24,9 @@ function ReviewListItem({reviewsCount}:reviewListItemProps): JSX.Element {
               </time>
             </div>
             <div className="rate review-card__rate">
-              <svg width={17} height={16} aria-hidden="true">
-                <use xlinkHref="#icon-full-star" />
-              </svg>
-              <svg width={17} height={16} aria-hidden="true">
-                <use xlinkHref="#icon-full-star" />
-              </svg>
-              <svg width={17} height={16} aria-hidden="true">
-                <use xlinkHref="#icon-full-star" />
-              </svg>
-              <svg width={17} height={16} aria-hidden="true">
-                <use xlinkHref="#icon-full-star" />
-              </svg>
-              <svg width={17} height={16} aria-hidden="true">
-                <use xlinkHref="#icon-full-star" />
-              </svg>
+              <ItemRating
+                rating={review.rating}
+              />
               <p className="visually-hidden">Оценка: {review.rating}</p>
             </div>
             <ul className="review-card__list">

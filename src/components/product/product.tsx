@@ -6,6 +6,8 @@ import ProductContainer from './product-container';
 import ProductReview from './product-review';
 import ProductSimilar from './product-similar';
 import { PopUpType } from '../../types/common-type';
+import { Link } from 'react-router-dom';
+import { AppRoute } from '../../const';
 
 function Product(): JSX.Element {
 
@@ -49,12 +51,12 @@ function Product(): JSX.Element {
                   </a>
                 </li>
                 <li className="breadcrumbs__item">
-                  <a className="breadcrumbs__link" href="catalog.html">
-                    Каталог
+                  <Link to={`${AppRoute.Main}`} className="breadcrumbs__link">
+                  Каталог
                     <svg width={5} height={8} aria-hidden="true">
                       <use xlinkHref="#icon-arrow-mini" />
                     </svg>
-                  </a>
+                  </Link>
                 </li>
                 <li className="breadcrumbs__item">
                   <span className="breadcrumbs__link breadcrumbs__link--active">
