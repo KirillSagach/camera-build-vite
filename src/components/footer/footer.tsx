@@ -1,3 +1,6 @@
+import { Link } from 'react-router-dom';
+import { AppRoute } from '../../const';
+
 function Footer(): JSX.Element {
   return (
     <footer className="footer">
@@ -56,9 +59,9 @@ function Footer(): JSX.Element {
             <p className="footer__title">Навигация</p>
             <ul className="footer__list">
               <li className="footer__item">
-                <a className="link" href="#">
+                <Link to={AppRoute.Main} className="link">
                   Каталог
-                </a>
+                </Link>
               </li>
               <li className="footer__item">
                 <a className="link" href="#">

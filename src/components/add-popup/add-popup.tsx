@@ -12,7 +12,7 @@ type AddPopUp = {
   popUpType: PopUpType;
 }
 
-function AddPopUp({ isPopupShow, onHandleClick, currentHoverItem,popUpType }: AddPopUp): JSX.Element {
+function AddPopUp({ isPopupShow, onHandleClick, currentHoverItem, popUpType }: AddPopUp): JSX.Element {
 
   const modalRef = useRef(null);
 
@@ -20,7 +20,7 @@ function AddPopUp({ isPopupShow, onHandleClick, currentHoverItem,popUpType }: Ad
 
     const closeModalOnClick = (evt: MouseEvent) => {
       if (modalRef.current && !modalRef.current.contains(evt.target)) {
-        onHandleClick(false,PopUpType.None);
+        onHandleClick(false, PopUpType.None);
       }
     };
 
@@ -35,7 +35,7 @@ function AddPopUp({ isPopupShow, onHandleClick, currentHoverItem,popUpType }: Ad
 
     const closeModalOnEscKey = (evt: KeyboardEvent) => {
       if (isPopupShow && evt.code === 'Escape') {
-        onHandleClick(false,PopUpType.None);
+        onHandleClick(false, PopUpType.None);
       }
     };
 
@@ -76,10 +76,22 @@ function AddPopUp({ isPopupShow, onHandleClick, currentHoverItem,popUpType }: Ad
     }
   }
 
+  function getMarkupByPopType(popType: PopUpType) {
+
+    switch (popType) {
+      case PopUpType.Success:
+        return (
+          'modal--narrow'
+        );
+      default: return ('');
+    }
+
+  }
+
   return (
 
     isPopupShow ? (
-      <div className="modal is-active" >
+      <div className={`modal is-active ${getMarkupByPopType(popUpType)}`} >
         <div className="modal__wrapper">
           <div className="modal__overlay" />
           <div ref={modalRef} className="modal__content">

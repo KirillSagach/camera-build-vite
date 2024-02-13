@@ -2,6 +2,7 @@ import { Link } from 'react-router-dom';
 import { AppRoute } from '../../const';
 import { useAppSelector } from '../hooks';
 import { PopUpType } from '../../types/common-type';
+import ItemRating from '../item-rating/item-rating';
 
 type CatalogItemProps = {
   onHandleClick: (showPopUp: boolean, popType: PopUpType) => void;
@@ -32,7 +33,7 @@ function CatalogItem({ onHandleClick, onHandleItemHover, isPopUpShow, currentPag
 
   modifyStartEndPages(currentPage);
 
-  const currentCatalogItems = catalogItems.slice(startPage,endPage);
+  const currentCatalogItems = catalogItems.slice(startPage, endPage);
 
   return (
 
@@ -70,21 +71,9 @@ function CatalogItem({ onHandleClick, onHandleItemHover, isPopUpShow, currentPag
             </div>
             <div className="product-card__info">
               <div className="rate product-card__rate">
-                <svg width={17} height={16} aria-hidden="true">
-                  <use xlinkHref="#icon-full-star" />
-                </svg>
-                <svg width={17} height={16} aria-hidden="true">
-                  <use xlinkHref="#icon-full-star" />
-                </svg>
-                <svg width={17} height={16} aria-hidden="true">
-                  <use xlinkHref="#icon-full-star" />
-                </svg>
-                <svg width={17} height={16} aria-hidden="true">
-                  <use xlinkHref="#icon-star" />
-                </svg>
-                <svg width={17} height={16} aria-hidden="true">
-                  <use xlinkHref="#icon-star" />
-                </svg>
+                <ItemRating
+                  rating={item.rating}
+                />
                 <p className="visually-hidden">Рейтинг: {item.rating}</p>
                 <p className="rate__count">
                   <span className="visually-hidden">Всего оценок:</span>{item.reviewCount}
@@ -101,7 +90,7 @@ function CatalogItem({ onHandleClick, onHandleItemHover, isPopUpShow, currentPag
               <button
                 className="btn btn--purple product-card__btn"
                 type="button"
-                onClick={() => onHandleClick(true,PopUpType.Item)}
+                onClick={() => onHandleClick(true, PopUpType.Item)}
               >
                 Купить
               </button>
