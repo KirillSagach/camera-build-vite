@@ -5,5 +5,6 @@ export enum AppRoute {
 }
 
 export enum APIRoute {
-  AllCatalog = '/cameras'
+  AllCatalog = '/cameras',
+  UserReview = '/reviews'
 }

@@ -1,3 +1,5 @@
+import { useState } from 'react';
+import AddPopUp from '../add-popup/add-popup';
 import Footer from '../footer/footer';
 import { useAppSelector } from '../hooks';
 import ProductContainer from './product-container';
@@ -5,6 +7,11 @@ import ProductReview from './product-review';
 import ProductSimilar from './product-similar';
 
 function Product(): JSX.Element {
+
+  const [show,setShow] = useState(false);
+  const setPopup = () => {
+    setShow(!show);
+  };
 
   const currentItem = useAppSelector((state) => state.currentItem);
 
@@ -56,7 +63,9 @@ function Product(): JSX.Element {
             <ProductSimilar />
           </div>
           <div className="page-content__section">
-            <ProductReview />
+            <ProductReview
+              onHandleClick={setPopup}
+            />
           </div>
         </div>
       </main>
@@ -69,6 +78,12 @@ function Product(): JSX.Element {
           <use xlinkHref="#icon-arrow2" />
         </svg>
       </a>
+      <AddPopUp
+        isPopupShow={show}
+        onHandleClick={setPopup}
+        currentHoverItem={0}
+        isItemPopup = {false}
+      />
       <Footer />
     </div>
   );
