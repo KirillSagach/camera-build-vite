@@ -1,7 +1,8 @@
+import { PopUpType } from '../../types/common-type';
 import CatalogItem from './main-catalog-item';
 
 type CatalogItemsProps = {
-  onHandleClick: () => void;
+  onHandleClick: (showPopUp: boolean, popType: PopUpType) => void;
   onHandleItemHover: (id: number) => void;
   isPopUpShow: boolean;
   currentPage: number;

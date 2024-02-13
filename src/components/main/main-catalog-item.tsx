@@ -1,9 +1,10 @@
 import { Link } from 'react-router-dom';
 import { AppRoute } from '../../const';
 import { useAppSelector } from '../hooks';
+import { PopUpType } from '../../types/common-type';
 
 type CatalogItemProps = {
-  onHandleClick: () => void;
+  onHandleClick: (showPopUp: boolean, popType: PopUpType) => void;
   onHandleItemHover: (id: number) => void;
   isPopUpShow: boolean;
   currentPage: number;
@@ -100,7 +101,7 @@ function CatalogItem({ onHandleClick, onHandleItemHover, isPopUpShow, currentPag
               <button
                 className="btn btn--purple product-card__btn"
                 type="button"
-                onClick={() => onHandleClick()}
+                onClick={() => onHandleClick(true,PopUpType.Item)}
               >
                 Купить
               </button>

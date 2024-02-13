@@ -7,12 +7,12 @@ import AddPopUpReviewSuccess from './add-popup-success';
 
 type AddPopUp = {
   isPopupShow: boolean;
-  onHandleClick: () => void;
+  onHandleClick: (showPopUp: boolean, popType: PopUpType) => void;
   currentHoverItem: number;
-  popupType: PopUpType;
+  popUpType: PopUpType;
 }
 
-function AddPopUp({ isPopupShow, onHandleClick, currentHoverItem, popupType }: AddPopUp): JSX.Element {
+function AddPopUp({ isPopupShow, onHandleClick, currentHoverItem,popUpType }: AddPopUp): JSX.Element {
 
   const modalRef = useRef(null);
 
@@ -20,7 +20,7 @@ function AddPopUp({ isPopupShow, onHandleClick, currentHoverItem, popupType }: A
 
     const closeModalOnClick = (evt: MouseEvent) => {
       if (modalRef.current && !modalRef.current.contains(evt.target)) {
-        onHandleClick();
+        onHandleClick(false,PopUpType.None);
       }
     };
 
@@ -35,7 +35,7 @@ function AddPopUp({ isPopupShow, onHandleClick, currentHoverItem, popupType }: A
 
     const closeModalOnEscKey = (evt: KeyboardEvent) => {
       if (isPopupShow && evt.code === 'Escape') {
-        onHandleClick();
+        onHandleClick(false,PopUpType.None);
       }
     };
 
@@ -47,9 +47,9 @@ function AddPopUp({ isPopupShow, onHandleClick, currentHoverItem, popupType }: A
   }, [isPopupShow, onHandleClick]);
 
 
-  function returnPopUpMarkup(popup: PopUpType) {
+  function returnPopUpMarkup(popType: PopUpType) {
 
-    switch (popup) {
+    switch (popType) {
 
       case PopUpType.Item:
 
@@ -83,7 +83,7 @@ function AddPopUp({ isPopupShow, onHandleClick, currentHoverItem, popupType }: A
         <div className="modal__wrapper">
           <div className="modal__overlay" />
           <div ref={modalRef} className="modal__content">
-            {returnPopUpMarkup(popupType)}
+            {returnPopUpMarkup(popUpType)}
           </div>
         </div>
       </div>

@@ -1,7 +1,8 @@
+import { PopUpType } from '../../types/common-type';
 import AddPopUpReviewForm from './add-popup-review-form';
 
 type addPopUpReviewProps = {
-  onHandleClick: ()=> void;
+  onHandleClick: (showPopUp: boolean, popType: PopUpType)=> void;
 }
 
 function AddPopUpReview({onHandleClick}:addPopUpReviewProps): JSX.Element {

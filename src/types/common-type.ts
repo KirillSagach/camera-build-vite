@@ -36,7 +36,8 @@ export type CatalogItemType = {
 export enum PopUpType {
   Item = 'item',
   Review = 'review',
-  Success = 'success'
+  Success = 'success',
+  None = 'none'
 }
 
 

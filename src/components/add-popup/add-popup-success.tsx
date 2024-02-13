@@ -1,5 +1,7 @@
+import { PopUpType } from '../../types/common-type';
+
 type addPopUpReviewSuccessProps = {
-  onHandleClick: ()=> void;
+  onHandleClick: (showPopUp: boolean, popType: PopUpType)=> void;
 }
 
 function AddPopUpReviewSuccess({onHandleClick}: addPopUpReviewSuccessProps): JSX.Element {
@@ -13,7 +15,9 @@ function AddPopUpReviewSuccess({onHandleClick}: addPopUpReviewSuccessProps): JSX
         <button
           className="btn btn--purple modal__btn modal__btn--fit-width"
           type="button"
-          onClick={onHandleClick}
+          onClick={()=>{
+            onHandleClick(false,PopUpType.None);
+          }}
         >
           Вернуться к покупкам
         </button>

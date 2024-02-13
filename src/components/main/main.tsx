@@ -9,11 +9,17 @@ import { PopUpType } from '../../types/common-type';
 
 function Main(): JSX.Element {
 
-  const [show,setShow] = useState(false);
-  const setPopup = () => {
-    setShow(!show);
-  };
+  const [popUp, setPopUp] = useState({
+    show: false,
+    popUpType: PopUpType.Review
+  });
 
+  const setPopupSettings = (showPopUp: boolean, popType: PopUpType) => {
+    setPopUp({
+      show: showPopUp,
+      popUpType: popType
+    });
+  };
   const [hoveredItemId, setHoveredItemId] = useState(0);
   const onHandleItemHover = (currentId: number) => {
     setHoveredItemId(currentId);
@@ -88,9 +94,9 @@ function Main(): JSX.Element {
                     <MainSortForm/>
                   </div>
                   <CatalogItems
-                    onHandleClick={setPopup}
+                    onHandleClick={setPopupSettings}
                     onHandleItemHover = {onHandleItemHover}
-                    isPopUpShow = {show}
+                    isPopUpShow = {popUp.show}
                     currentPage={currentPage}
                   />
                   <Pagination
@@ -103,10 +109,10 @@ function Main(): JSX.Element {
           </section>
         </div>
         <AddPopUp
-          isPopupShow={show}
-          onHandleClick={setPopup}
+          isPopupShow={popUp.show}
+          onHandleClick={setPopupSettings}
           currentHoverItem={hoveredItemId}
-          popupType={PopUpType.Item}
+          popUpType={PopUpType.Item}
         />
       </main>
       <Footer/>

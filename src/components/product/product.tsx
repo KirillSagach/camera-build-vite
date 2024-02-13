@@ -9,9 +9,16 @@ import { PopUpType } from '../../types/common-type';
 
 function Product(): JSX.Element {
 
-  const [show,setShow] = useState(false);
-  const setPopup = () => {
-    setShow(!show);
+  const [popUp, setPopUp] = useState({
+    show: false,
+    popUpType: PopUpType.Review
+  });
+
+  const setPopupSettings = (showPopUp: boolean, popType: PopUpType) => {
+    setPopUp({
+      show: showPopUp,
+      popUpType: popType
+    });
   };
 
   const currentItem = useAppSelector((state) => state.currentItem);
@@ -65,7 +72,7 @@ function Product(): JSX.Element {
           </div>
           <div className="page-content__section">
             <ProductReview
-              onHandleClick={setPopup}
+              onHandleClick={setPopupSettings}
             />
           </div>
         </div>
@@ -80,10 +87,10 @@ function Product(): JSX.Element {
         </svg>
       </a>
       <AddPopUp
-        isPopupShow={show}
-        onHandleClick={setPopup}
+        isPopupShow={popUp.show}
+        onHandleClick={setPopupSettings}
         currentHoverItem={0}
-        popupType = {PopUpType.Review}
+        popUpType={popUp.popUpType}
       />
       <Footer />
     </div>
