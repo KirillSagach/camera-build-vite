@@ -1,15 +1,18 @@
 import { useEffect, useRef } from 'react';
 import AddPopUpItem from './add-popup-item';
 import AddPopUpReview from './add-popup-review';
+import { PopUpType } from '../../types/common-type';
+import AddPopUpReviewSuccess from './add-popup-success';
+
 
 type AddPopUp = {
   isPopupShow: boolean;
   onHandleClick: () => void;
   currentHoverItem: number;
-  isItemPopup: boolean;
+  popupType: PopUpType;
 }
 
-function AddPopUp({ isPopupShow, onHandleClick, currentHoverItem, isItemPopup }: AddPopUp): JSX.Element {
+function AddPopUp({ isPopupShow, onHandleClick, currentHoverItem, popupType }: AddPopUp): JSX.Element {
 
   const modalRef = useRef(null);
 
@@ -44,11 +47,11 @@ function AddPopUp({ isPopupShow, onHandleClick, currentHoverItem, isItemPopup }:
   }, [isPopupShow, onHandleClick]);
 
 
-  function returnPopUpMarkup(isItem: boolean) {
+  function returnPopUpMarkup(popup: PopUpType) {
 
-    switch (isItem) {
+    switch (popup) {
 
-      case true:
+      case PopUpType.Item:
 
         return (
           <AddPopUpItem
@@ -57,9 +60,18 @@ function AddPopUp({ isPopupShow, onHandleClick, currentHoverItem, isItemPopup }:
           />
         );
 
-      case false:
+      case PopUpType.Review:
         return (
-          <AddPopUpReview />
+          <AddPopUpReview
+            onHandleClick={onHandleClick}
+          />
+        );
+
+      case PopUpType.Success:
+        return (
+          <AddPopUpReviewSuccess
+            onHandleClick={onHandleClick}
+          />
         );
     }
   }
@@ -71,7 +83,7 @@ function AddPopUp({ isPopupShow, onHandleClick, currentHoverItem, isItemPopup }:
         <div className="modal__wrapper">
           <div className="modal__overlay" />
           <div ref={modalRef} className="modal__content">
-            {returnPopUpMarkup(isItemPopup)}
+            {returnPopUpMarkup(popupType)}
           </div>
         </div>
       </div>

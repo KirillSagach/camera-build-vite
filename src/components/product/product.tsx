@@ -5,6 +5,7 @@ import { useAppSelector } from '../hooks';
 import ProductContainer from './product-container';
 import ProductReview from './product-review';
 import ProductSimilar from './product-similar';
+import { PopUpType } from '../../types/common-type';
 
 function Product(): JSX.Element {
 
@@ -82,7 +83,7 @@ function Product(): JSX.Element {
         isPopupShow={show}
         onHandleClick={setPopup}
         currentHoverItem={0}
-        isItemPopup = {false}
+        popupType = {PopUpType.Review}
       />
       <Footer />
     </div>

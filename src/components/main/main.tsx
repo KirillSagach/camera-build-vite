@@ -5,6 +5,7 @@ import MainFilterForm from './main-filter-form';
 import MainSortForm from './main-sort-form';
 import Pagination from './main-pagination';
 import AddPopUp from '../add-popup/add-popup';
+import { PopUpType } from '../../types/common-type';
 
 function Main(): JSX.Element {
 
@@ -105,7 +106,7 @@ function Main(): JSX.Element {
           isPopupShow={show}
           onHandleClick={setPopup}
           currentHoverItem={hoveredItemId}
-          isItemPopup
+          popupType={PopUpType.Item}
         />
       </main>
       <Footer/>
