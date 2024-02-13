@@ -2,9 +2,10 @@ import { useState } from 'react';
 import ProductReviewList from './product-review-list';
 import ProductReviewBtn from './product-review-btn';
 import { useAppSelector } from '../hooks';
+import { PopUpType } from '../../types/common-type';
 
 type productReviewProps = {
-  onHandleClick: ()=> void;
+  onHandleClick: (showPopUp: boolean, popType: PopUpType)=> void;
 }
 
 function ProductReview({onHandleClick}:productReviewProps): JSX.Element {
@@ -25,7 +26,7 @@ function ProductReview({onHandleClick}:productReviewProps): JSX.Element {
         <div className="page-content__headed">
           <h2 className="title title--h3">Отзывы</h2>
           <button className="btn" type="button"
-            onClick={() => onHandleClick()}
+            onClick={() => onHandleClick(true,PopUpType.Review)}
           >
             Оставить свой отзыв
           </button>

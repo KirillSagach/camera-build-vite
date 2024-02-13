@@ -1,9 +1,10 @@
+import { PopUpType } from '../../types/common-type';
 import { useAppSelector } from '../hooks';
 import { findItemForPopUp } from '../utils/utils-for-item';
 
 type AddPopUpItemProps = {
   currentHoverItem: number;
-  onHandleClick: ()=> void;
+  onHandleClick: (showPopUp: boolean, popType: PopUpType)=> void;
 }
 
 function AddPopUpItem({currentHoverItem,onHandleClick}: AddPopUpItemProps): JSX.Element {
@@ -58,7 +59,9 @@ function AddPopUpItem({currentHoverItem,onHandleClick}: AddPopUpItemProps): JSX.
         </button>
       </div>
       <button className="cross-btn" type="button" aria-label="Закрыть попап"
-        onClick={onHandleClick}
+        onClick={()=>{
+          onHandleClick(false,PopUpType.None);
+        }}
       >
         <svg width={10} height={10} aria-hidden="true">
           <use xlinkHref="#icon-close" />

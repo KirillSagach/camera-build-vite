@@ -1,15 +1,18 @@
 import { useEffect, useRef } from 'react';
 import AddPopUpItem from './add-popup-item';
 import AddPopUpReview from './add-popup-review';
+import { PopUpType } from '../../types/common-type';
+import AddPopUpReviewSuccess from './add-popup-success';
+
 
 type AddPopUp = {
   isPopupShow: boolean;
-  onHandleClick: () => void;
+  onHandleClick: (showPopUp: boolean, popType: PopUpType) => void;
   currentHoverItem: number;
-  isItemPopup: boolean;
+  popUpType: PopUpType;
 }
 
-function AddPopUp({ isPopupShow, onHandleClick, currentHoverItem, isItemPopup }: AddPopUp): JSX.Element {
+function AddPopUp({ isPopupShow, onHandleClick, currentHoverItem,popUpType }: AddPopUp): JSX.Element {
 
   const modalRef = useRef(null);
 
@@ -17,7 +20,7 @@ function AddPopUp({ isPopupShow, onHandleClick, currentHoverItem, isItemPopup }:
 
     const closeModalOnClick = (evt: MouseEvent) => {
       if (modalRef.current && !modalRef.current.contains(evt.target)) {
-        onHandleClick();
+        onHandleClick(false,PopUpType.None);
       }
     };
 
@@ -32,7 +35,7 @@ function AddPopUp({ isPopupShow, onHandleClick, currentHoverItem, isItemPopup }:
 
     const closeModalOnEscKey = (evt: KeyboardEvent) => {
       if (isPopupShow && evt.code === 'Escape') {
-        onHandleClick();
+        onHandleClick(false,PopUpType.None);
       }
     };
 
@@ -44,11 +47,11 @@ function AddPopUp({ isPopupShow, onHandleClick, currentHoverItem, isItemPopup }:
   }, [isPopupShow, onHandleClick]);
 
 
-  function returnPopUpMarkup(isItem: boolean) {
+  function returnPopUpMarkup(popType: PopUpType) {
 
-    switch (isItem) {
+    switch (popType) {
 
-      case true:
+      case PopUpType.Item:
 
         return (
           <AddPopUpItem
@@ -57,9 +60,18 @@ function AddPopUp({ isPopupShow, onHandleClick, currentHoverItem, isItemPopup }:
           />
         );
 
-      case false:
+      case PopUpType.Review:
         return (
-          <AddPopUpReview />
+          <AddPopUpReview
+            onHandleClick={onHandleClick}
+          />
+        );
+
+      case PopUpType.Success:
+        return (
+          <AddPopUpReviewSuccess
+            onHandleClick={onHandleClick}
+          />
         );
     }
   }
@@ -71,7 +83,7 @@ function AddPopUp({ isPopupShow, onHandleClick, currentHoverItem, isItemPopup }:
         <div className="modal__wrapper">
           <div className="modal__overlay" />
           <div ref={modalRef} className="modal__content">
-            {returnPopUpMarkup(isItemPopup)}
+            {returnPopUpMarkup(popUpType)}
           </div>
         </div>
       </div>

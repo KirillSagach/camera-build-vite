@@ -2,9 +2,14 @@ import { ChangeEvent, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useAppDispatch, useAppSelector } from '../hooks';
 import { uploadUserReview } from '../store/api-action';
+import { PopUpType } from '../../types/common-type';
+
+type addPopUpReviewFormProps = {
+  onHandleClick: (showPopUp: boolean, popType: PopUpType)=> void;
+}
 
 
-function AddPopUpReviewForm(): JSX.Element {
+function AddPopUpReviewForm({onHandleClick}:addPopUpReviewFormProps): JSX.Element {
 
   const { register, handleSubmit, formState: { errors } } = useForm();
 
@@ -53,6 +58,7 @@ function AddPopUpReviewForm(): JSX.Element {
 
   const onSubmit = () => {
     dispatch(uploadUserReview(formData));
+    onHandleClick(true,PopUpType.Success);
   };
 
   return (

@@ -33,4 +33,11 @@ export type CatalogItemType = {
   previewImgWebp2x: string;
 }
 
+export enum PopUpType {
+  Item = 'item',
+  Review = 'review',
+  Success = 'success',
+  None = 'none'
+}
+
 
