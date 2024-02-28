@@ -16,7 +16,7 @@ function ProductReview({onHandleClick}:productReviewProps): JSX.Element {
     setReviewsCount(reviewsCount + 3);
   };
 
-  const reviewsForItem = useAppSelector((state)=> state.currentItemReviews);
+  const reviewsForItem = useAppSelector(({itemReducer})=> itemReducer.currentItemReviews);
   const reviewsForItemCount = reviewsForItem.length;
   const isBtnNeeded = reviewsForItemCount > reviewsCount;
 

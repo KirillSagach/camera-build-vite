@@ -13,7 +13,7 @@ type CatalogItemProps = {
 
 function CatalogItem({ onHandleClick, onHandleItemHover, isPopUpShow, currentPage }: CatalogItemProps): JSX.Element {
 
-  const catalogItems = useAppSelector((state) => state.catalogItems);
+  const catalogItems = useAppSelector(({catalogReducer}) => catalogReducer.catalogItems);
 
   let startPage = 0;
   let endPage = 0;

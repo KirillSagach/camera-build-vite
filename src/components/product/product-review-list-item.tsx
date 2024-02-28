@@ -8,7 +8,7 @@ type reviewListItemProps = {
 
 function ReviewListItem({ reviewsCount }: reviewListItemProps): JSX.Element {
 
-  const reviews = useAppSelector((state) => state.currentItemReviews);
+  const reviews = useAppSelector(({itemReducer}) => itemReducer.currentItemReviews);
   const sortedReviews = sortReviews(reviews);
   const sliceReview = sortedReviews.slice(0, reviewsCount);
 

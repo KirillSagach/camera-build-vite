@@ -23,7 +23,7 @@ function Product(): JSX.Element {
     });
   };
 
-  const currentItem = useAppSelector((state) => state.currentItem);
+  const currentItem = useAppSelector(({itemReducer}) => itemReducer.currentItem);
 
   const scrollToTop = () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
