@@ -9,7 +9,7 @@ function ProductContainer(): JSX.Element {
   const cameraId = params.id;
 
   const dispatch = useAppDispatch();
-  const currentItem = useAppSelector((state) => state.currentItem);
+  const currentItem = useAppSelector(({itemReducer}) => itemReducer.currentItem);
 
   if (currentItem === undefined || currentItem.id.toString() !== cameraId) {
     dispatch(loadItemData({ id: cameraId }));

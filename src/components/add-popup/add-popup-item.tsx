@@ -9,7 +9,7 @@ type AddPopUpItemProps = {
 
 function AddPopUpItem({currentHoverItem,onHandleClick}: AddPopUpItemProps): JSX.Element {
 
-  const catalogItems = useAppSelector((state) => state.catalogItems);
+  const catalogItems = useAppSelector(({catalogReducer}) => catalogReducer.catalogItems);
   const currentHoverItemData = findItemForPopUp(currentHoverItem, catalogItems);
 
   return (

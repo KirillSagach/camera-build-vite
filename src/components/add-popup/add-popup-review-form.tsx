@@ -14,7 +14,7 @@ function AddPopUpReviewForm({onHandleClick}:addPopUpReviewFormProps): JSX.Elemen
   const { register, handleSubmit, formState: { errors } } = useForm();
 
   const dispatch = useAppDispatch();
-  const currentItemId = useAppSelector((state)=>state.currentItem.id);
+  const currentItemId = useAppSelector(({itemReducer})=>itemReducer.currentItem.id);
 
   const [formData, setFormData] = useState({
     cameraId: currentItemId,

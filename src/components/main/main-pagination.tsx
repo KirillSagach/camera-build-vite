@@ -8,7 +8,7 @@ type paginationProps = {
 
 function Pagination({onHandlePagClick, currentPage}:paginationProps): JSX.Element {
 
-  const currentItems = useAppSelector((state)=> state.catalogItems);
+  const currentItems = useAppSelector(({catalogReducer})=> catalogReducer.catalogItems);
   const pages = currentItems.length / 9;
   const ceilPages = Math.floor(pages);
 
